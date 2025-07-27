@@ -1,21 +1,22 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import NavBar from "./components/NavBar";
 import "./App.css";
 import { v4 as uuidv4 } from "uuid";
 
 function App() {
   const [todo, setTodo] = useState("");
-  const [todos, setTodos] = useState([]);
+  const [todos, setTodos] = useState(() => {
+    const saved = localStorage.getItem("todos");
+    return saved ? JSON.parse(saved) : [];
+  });
   const [isEditMode, setEditMode] = useState(false);
 
-  const addTodo = (e, id="") => {
-    if(e.target.innerText === "Add"){
-      setTodos([...todos, { todo, id: uuidv4(), isCompleted: false }]);
-    }
-    else if(e.target.innerText === "Update"){
+  useEffect(() => {
+    localStorage.setItem("todos", JSON.stringify(todos));
+  }, [todos]);
 
-      setTodos([...todos, { todo, id: uuidv4(), isCompleted: false }]);
-    }
+  const addTodo = () => {
+    setTodos([...todos, { todo, id: uuidv4(), isCompleted: false }]);
   };
 
   const editTodo = (id) => {
@@ -25,6 +26,10 @@ function App() {
     let value = todos[index].todo;
     setTodo(value);
     setEditMode(true);
+    let newTodos = todos.filter((item) => {
+      return item.id !== id;
+    });
+    setTodos(newTodos);
   };
 
   const deleteTodo = (id) => {
