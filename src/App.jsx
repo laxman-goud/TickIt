@@ -10,12 +10,20 @@ function App() {
     return saved ? JSON.parse(saved) : [];
   });
   const [isEditMode, setEditMode] = useState(false);
+  const [showFinished, setShowFinished] = useState(true)
 
   useEffect(() => {
     localStorage.setItem("todos", JSON.stringify(todos));
   }, [todos]);
 
+  const toggleFinished = () => {
+    setShowFinished(!showFinished)
+  }
+  
   const addTodo = () => {
+    if(isEditMode){
+      setEditMode(!isEditMode);
+    }
     setTodos([...todos, { todo, id: uuidv4(), isCompleted: false }]);
   };
 
@@ -61,22 +69,29 @@ function App() {
           <h2 className="text-3xl font-bold">Add a Todo</h2>
           <input
             onChange={handleChange}
+            onKeyDown={(e)=>{
+              if(e.key === 'Enter' && todo.length > 3){
+                addTodo();
+              }
+            }}
             type="text"
             className="bg-white w-1/2 h-8 pl-2"
             value={todo}
-            required
+            placeholder="enter 3 minimum characters"
           />
           <button
+          disabled={todo.length < 3}
             onClick={addTodo}
-            className="h-8 w-[6rem] bg-indigo-600 text-white px-5 rounded mx-4 hover:bg-indigo-900 cursor-pointer">
+            className="h-8 w-[6rem] bg-indigo-600 text-white px-5 rounded mx-4 hover:bg-indigo-900 cursor-pointer disabled:bg-indigo-400">
             {isEditMode ? "Update" : "Add"}
           </button>
         </div>
+        <input type="checkbox" checked={showFinished} onChange={toggleFinished}/> Show Finished
         <h2 className="text-2xl font-bold my-1.5">Your Todos</h2>
         {todos.length === 0 && <div className="mx-4">No Todos to Display</div>}
         <div className="todos">
           {todos.map((item) => {
-            return (
+            return ( (showFinished || !item.isCompleted) && 
               <div
                 key={item.id}
                 className="todo flex justify-between bg-indigo-200 p-1.5 rounded my-1.5">
@@ -88,6 +103,7 @@ function App() {
                     type="checkbox"
                     name={item.id}
                     onChange={handleCheckBox}
+                    checked={item.isCompleted}
                   />
                   <h3>{item.todo}</h3>
                 </div>
