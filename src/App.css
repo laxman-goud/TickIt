@@ -1,0 +1,14 @@
+.todos::-webkit-scrollbar {
+    width: 8px;
+}
+
+.todos::-webkit-scrollbar-track {
+    background: #ddd;
+    border-radius: 50px;
+}
+
+.todos::-webkit-scrollbar-thumb {
+    background-color: #4f46e5;
+    border-radius: 10px;
+    border: 2px solid #ddd;
+}
