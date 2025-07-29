@@ -67,7 +67,7 @@ function App() {
   return (
     <>
       <NavBar />
-      <div className="container mx-auto my-5 rounded-xl p-5 bg-violet-100 min-h-[80vh] max-w-[1000px]">
+      <div className="container mx-auto lg:my-5 rounded-xl p-5 bg-violet-100 min-h-[80vh] max-w-[1000px]">
         <h1 className="text-center font-bold text-[30px]">TickIt - Manage your todos at one place</h1>
         <div className="addTodo">
           <h2 className="text-3xl font-bold">Add a Todo</h2>
