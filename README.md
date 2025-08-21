@@ -72,18 +72,4 @@ This project is open-source and available under the [MIT License](LICENSE).
 
 - 🔗 [Live Demo]( https://tick-it-iota.vercel.app )
 - 🧠 [Creator](https://github.com/laxman-goud)
-
 ---
-
-## 🤝 Contributions
-
-Contributions are welcome! To contribute:
-
-1. Fork this repo
-2. Create a new branch: `git checkout -b feature/feature-name`
-3. Commit changes: `git commit -m "Add feature"`
-4. Push to the branch: `git push origin feature/feature-name`
-5. Open a Pull Request 🚀
-
-
- Developed by Laxman
